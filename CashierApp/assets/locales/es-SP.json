@@ -1,0 +1,19 @@
+{
+  "users": "Usuarios",
+  "expenses": "Gastos",
+  "total": "Total",
+  "edit": "Editar",
+  "delete": "Eliminar",
+  "appName": "appName",
+  "search": "Buscar usuario..",
+  "add_details": "Agregar detalles",
+  "add_user": "Agregar usuario",
+  "add_Expenses": "Agregar gastos",
+  "product": "producto",
+  "language": "Idioma",
+  "contact_email": "CONTÁCTENOS POR CORREO ELECTRÓNICO",
+  "rate_us": "CALIFICARNOS EN PLAY STORE",
+  "dm_inst": "DMNOS EN INSTAGRAM",
+  "source_code": "CÓDIGO FUENTE EN GITHUB",
+  "report_issue": "PROBLEMA DEL INFORME EN GITHUB"
+}

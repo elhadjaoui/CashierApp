@@ -1,0 +1,19 @@
+{
+  "users": "مشتریان",
+  "expenses": "هزینه ها",
+  "total": "جمع",
+  "edit": "ویرایش کنید",
+  "delete": "حذف",
+  "appName": "appName",
+  "search": "جستجوی مشتری..",
+  "add_details": "افزودن جزئیات",
+  "add_user": "مشتری اضافه کنید",
+  "add_Expenses": "هزینه ها را اضافه کنید",
+  "product": "محصول",
+  "language": "زبان",
+  "contact_email": "با ایمیل با ما تماس بگیرید",
+  "rate_us": "به ما رای دهید",
+  "dm_inst": "با ما در اینستاگرام ارتباط برقرار کنید",
+  "source_code": "این پروژه در GITHUB است",
+  "report_issue": "گزارش شماره در Github"
+}

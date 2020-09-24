@@ -1,0 +1,19 @@
+{
+  "users": "الزبناء",
+  "expenses": "المصاريف",
+  "total": "المجموع",
+  "edit": "تغيير",
+  "search": "ابحث عن زبون..",
+  "appName": "اسم التطبيق",
+  "delete": "ازالة",
+  "add_details": "أضف معلومات",
+  "add_user": "أضف زبون",
+  "add_Expenses": "أضف مصاريف",
+  "product": "منتوج",
+  "language": "اللغة",
+  "contact_email": "تواصل معنا بالايميل",
+  "rate_us": "تقييمك لتطبيقنا",
+  "dm_inst": "تواصل معنا على الانستغرام",
+  "source_code": "المشزوع على GITHUB",
+  "report_issue": "التبليغ عن مشكلة"
+}
