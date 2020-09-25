@@ -8,7 +8,7 @@ Cashier is a sales, warehouse and accounting software for managing store and sto
 Download my app on play store : [CashierApp](https://play.google.com/store/apps/details?id=com.cashier.qayadapp)
 
 <p align="center">
-  <img src="flutter_clock_app.png" alt="flutter alarm clock app" title="Screenshot">
+  <img src="razqi-1.png" alt="flutter alarm clock app" title="Screenshot">
 </p>
 
 
