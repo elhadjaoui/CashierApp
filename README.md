@@ -8,15 +8,15 @@ Cashier is a sales, warehouse and accounting software for managing store and sto
 Download my app on play store : [CashierApp](https://play.google.com/store/apps/details?id=com.cashier.qayadapp)
 
 <p align="center">
-  <img src="razqi- 1.png" alt="flutterCashierApp" title="Screenshot">
+  <img src="razqi1.png" alt="flutterCashierApp" title="Screenshot">
 </p>
 
 <p align="center">
-  <img src="razqi- 2.png" alt="flutter CashierApp" title="Screenshot">
+  <img src="razqi2.png" alt="flutter CashierApp" title="Screenshot">
 </p>
 
 <p align="center">
-  <img src="razqi- 3.png" alt="flutter CashierApp" title="Screenshot">
+  <img src="razqi3.png" alt="flutter CashierApp" title="Screenshot">
 </p>
 
 
