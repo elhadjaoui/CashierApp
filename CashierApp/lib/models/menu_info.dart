@@ -21,12 +21,12 @@ class MenuInfo extends ChangeNotifier {
   }
   UserHelper _userHelper = UserHelper();
 
-  Future<List<UserInfo>> loadUsers() {
-     users = _userHelper.getUsers();
-    notifyListeners();
-    return users;
-
-  }
+//  Future<List<UserInfo>> loadUsers() {
+//     users = _userHelper.getUsers();
+//    notifyListeners();
+//    return users;
+//
+//  }
 
 
 }

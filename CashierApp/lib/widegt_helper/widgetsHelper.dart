@@ -32,32 +32,31 @@ class WidgetsHelper {
                   children: [
                     GestureDetector(
                         onTap: () async {
-                          Navigator.pop(context);
-                          ShowMenu().show(context, addUser( context, 'edit',data: data), true);
-//                    var result = await _userHelper.update(data);
-//                    print('resutttttt: $result');
-//                    if (result > 0)
-//                      {
-//                        _fetch.loadUsers();
-//                        Navigator.pop(context);
-//                      }
+                          bool result =  await ShowMenu().show(context, addUser( context, 'edit',data: data), true);
+//                     await _userHelper.update(data);
+                    print('resutttttt: $result');
+                    if (result != null && result)
+                      {
+
+                        Navigator.pop(context,true);
+                      }
                         },
                         child: CustomContainer(
-                            header: 'Edit ${data.name}', icon: Icons.edit)),
+                            header: 'edit'.tr()+' ${data.name} ', icon: Icons.edit)),
                     GestureDetector(
                         onTap: () async {
                           var result = await _userHelper.delete(data.id);
                           _userHelper.deleteUserDetails(data.name);
                           print('resutttttt: $result');
                           if (result > 0) {
-                            var menu =
-                                Provider.of<MenuInfo>(context, listen: false);
-                            menu.loadUsers();
-                            Navigator.pop(context);
+//                            var menu =
+//                                Provider.of<MenuInfo>(context, listen: false);
+//                            menu.loadUsers();
+                            Navigator.pop(context,true);
                           }
                         },
                         child: CustomContainer(
-                            header: 'Delete ${data.name}', icon: Icons.delete)),
+                            header: 'delete'.tr() +' ${data.name} ', icon: Icons.delete)),
                   ],
                 ),
               ],
@@ -153,10 +152,10 @@ class WidgetsHelper {
                         }
                         if (result != null && result > 0) {
                           print('vvvv = $result');
-                          var menu =
-                          Provider.of<MenuInfo>(context, listen: false);
-                          menu.loadUsers();
-                          Navigator.pop(context);
+//                          var menu =
+//                          Provider.of<MenuInfo>(context, listen: false);
+//                          menu.loadUsers();
+                          Navigator.pop(context,true);
                         }
                       }
                       else
@@ -164,7 +163,7 @@ class WidgetsHelper {
                           gravity:  Toast.CENTER,);
                     },
                     icon: Icon(Icons.done),
-                    label: Text('Save'),
+                    label: Text('save'.tr()),
                   ),
                 ],
               ),
@@ -409,15 +408,15 @@ class _AddUserState extends State<AddUser> {
                         }
                         if (result != null && result > 0) {
                           print('vvvv = $result');
-                          var menu =
-                          Provider.of<MenuInfo>(context, listen: false);
-                          menu.loadUsers();
-                          Navigator.pop(context);
+//                          var menu =
+//                          Provider.of<MenuInfo>(context, listen: false);
+//                          menu.loadUsers();
+                          Navigator.pop(context,true);
                         }
                       }
                     },
                     icon: Icon(Icons.done),
-                    label: Text('Save'),
+                    label: Text('save'.tr()),
                   ),
                 ],
               ),
@@ -436,8 +435,9 @@ class _AddUserState extends State<AddUser> {
 class AddUserDetails extends StatefulWidget {
   String name;
   UserDetailsInfo userid;
+  Expenses expenses;
   String condition;
-  AddUserDetails({this.name,this.condition,this.userid});
+  AddUserDetails({this.name,this.condition,this.userid,this.expenses});
   @override
   _AddUserDetailsState createState() => _AddUserDetailsState();
 }
@@ -471,7 +471,7 @@ class _AddUserDetailsState extends State<AddUserDetails> {
                   width: 10,
                 ),
                 Text(
-                   tag == 'expenses'? 'add_expenses'.tr():'add_details'.tr() ,
+                   tag == 'expenses'? 'add_Expenses'.tr():'add_details'.tr() ,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 24,
@@ -550,11 +550,28 @@ class _AddUserDetailsState extends State<AddUserDetails> {
                     result = await _userHelper.insertExpenses(expense);
 
                   }
+                  else if(widget.condition == 'expensesEdit')
+                  {
+                    print('asfgasdgasdgsdgasd');
+//                    _pricecontroller.text = widget.expenses.price.toString();
+//                    _namecontroller.text = widget.expenses.name;
+                    widget.expenses.price =  double.parse(_pricecontroller.text) ;
+                    widget.expenses.name = _namecontroller.text;
+                    widget.expenses.creationDate =  DateTime.now();
+
+                    var result = await _userHelper.updateExpenses(widget.expenses,);
+                    print(result);
+                    if (result > 0)
+                      Navigator.pop(context,true);
+                  }
                   else if(widget.condition == 'edit')
                     {
+//                      _pricecontroller.text =  widget.userid.price.toString();
+//                      _namecontroller.text = widget.userid.product;
+
                       var sign =  widget.userid.condition;
                       widget.userid.price = sign == 'give' ? double.parse(_pricecontroller.text) : double.parse(_pricecontroller.text) * -1;
-                      widget.userid.product = _namecontroller.text;
+                      widget.userid.product = sign == 'take' ? '<=='  :_namecontroller.text;
                       widget.userid.creationDate =  DateTime.now();
 
                       var result = await _userHelper.updateUserDetails(widget.userid,);
@@ -585,7 +602,7 @@ class _AddUserDetailsState extends State<AddUserDetails> {
                     gravity:  Toast.CENTER,);
               },
               icon: Icon(Icons.done),
-              label: Text('Save'),
+              label: Text('save'.tr()),
             ),
           ],
         ),

@@ -1,4 +1,4 @@
-import 'package:clock_app/helper/show_popup_menu.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:clock_app/models/expenses.dart';
 import 'package:clock_app/models/user_info.dart';
 import 'package:clock_app/pdf_creation/pdf_viewer_page.dart';
@@ -95,10 +95,14 @@ userReport(context, List<UserDetailsInfo> userDetailsInfo, double total) async {
                         DateFormat('dd/MM/yyyy hh:mm').format(msg.creationDate)
                       ])
                 ]),
+        pw.SizedBox(height: 20),
+        pw.Row(
+
+            children: [pw.Text('<== :'),  pw.SizedBox(width: 20), pw.Text('I take it.')]),
             pw.SizedBox(height: 40),
             pw.Row(
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                children: [pw.Text('Signature :'), pw.Text('App Name ')]),
+                children: [pw.Text('Signature :'), pw.Text('RazQi | Cashier')]),
 
           ]));
   //save PDF
@@ -197,10 +201,14 @@ expensesReport(context, List<Expenses> expenses, double total) async {
                 DateFormat('dd/MM/yyyy hh:mm').format(msg.creationDate)
               ])
             ]),
+        pw.SizedBox(height: 20),
+        pw.Row(
+
+            children: [pw.Text('<== :'),  pw.SizedBox(width: 20), pw.Text('I take it.')]),
         pw.SizedBox(height: 40),
         pw.Row(
             mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-            children: [pw.Text('Signature :'), pw.Text('App Name ')]),
+            children: [pw.Text('Signature :'), pw.Text('RazQi | Cashier')]),
 
       ]));
   //save PDF

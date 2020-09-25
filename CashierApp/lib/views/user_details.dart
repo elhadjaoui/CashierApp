@@ -8,7 +8,6 @@ import 'package:easy_localization/easy_localization.dart';
 
 import 'package:clock_app/pdf_creation/report_pdf.dart';
 import 'package:clock_app/widegt_helper/widgetsHelper.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -320,7 +319,7 @@ getTotal(List<UserDetailsInfo> price)
 
                   return Center(
                     child: Text(
-                      'Loading..',
+                      'loading'.tr(),
                       style: TextStyle(color: Colors.white),
                     ),
                   );

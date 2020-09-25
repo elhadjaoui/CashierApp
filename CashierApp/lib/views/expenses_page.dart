@@ -7,10 +7,8 @@ import 'package:clock_app/models/expenses.dart';
 import 'package:clock_app/models/user_info.dart';
 import 'package:clock_app/pdf_creation/report_pdf.dart';
 import 'package:clock_app/widegt_helper/widgetsHelper.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 
@@ -149,10 +147,9 @@ class _ExpensesPageState extends State<ExpensesPage> {
                     children: snapshot.data.map<Widget>((expense) {
                       var alarmTime =
                           DateFormat('dd/MM/yyyy').format(expense.creationDate);
-                      var ccolor = Random();
-                      int ccclor = ccolor.nextInt(GradientTemplate.gradientTemplate.length - 1);
+
                       var gradientColor = GradientTemplate
-                          .gradientTemplate[ccclor].colors;
+                          .gradientTemplate[CustomColors.gradientIndex()].colors;
                       return Slidable(
                         actionPane: SlidableDrawerActionPane(),
                         actionExtentRatio: 0.25,
@@ -163,7 +160,12 @@ class _ExpensesPageState extends State<ExpensesPage> {
                               caption: 'edit'.tr(),
                               color: gradientColor.last,
                               icon: Icons.edit,
-                              onTap: () async {}
+                              onTap: () async {
+                                var result = await ShowMenu().show(context, AddUserDetails( condition: 'expensesEdit',expenses: expense,), true);
+                                print(result);
+                                if (result != null && result)
+                                  loadExpenses();
+                              }
                           ),
                         ),
                           Padding(
@@ -254,7 +256,7 @@ class _ExpensesPageState extends State<ExpensesPage> {
                   );
                 return Center(
                   child: Text(
-                    'Loading..',
+                    'loading'.tr(),
                     style: TextStyle(color: Colors.white),
                   ),
                 );

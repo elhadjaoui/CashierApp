@@ -31,14 +31,15 @@ class _UsersPageState extends State<UsersPage> {
   @override
   void initState() {
     _alarmTime = DateTime.now();
+    loadUsers();
     //_users = _fetch.loadUsers();
     super.initState();
   }
 
-//  void loadUsers() {
-//    _users = _fetch.loadUsers();
-//    if (mounted) setState(() {});
-//  }
+  void loadUsers() {
+    _users = _userHelper.getUsers();
+    if (mounted) setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,28 +64,38 @@ class _UsersPageState extends State<UsersPage> {
                 children: [
                   IconButton(
                     tooltip: 'add',
-                   icon: Icon( Icons.person_add,),
-                    color: Colors.white, onPressed:() async {
-                    ShowMenu().show(context, WidgetsHelper().addUser(context,'add',), true);
-//                        print('rex = $result');
-//                        if (result != null && result  ) {
-//                          setState(() {});
-//                        }
-                  },
+                    icon: Icon(
+                      Icons.person_add,
+                    ),
+                    color: Colors.white,
+                    onPressed: () async {
+                      bool result = await ShowMenu().show(
+                          context,
+                          WidgetsHelper().addUser(
+                            context,
+                            'add',
+                          ),
+                          true);
+                      print('rex = $result');
+                      if (result != null && result) {
+                        loadUsers();
+                      }
+                    },
                   ),
                   SizedBox(
                     width: 13.0,
                   ),
                   IconButton(
-                     tooltip: 'search',
+                    tooltip: 'search',
                     color: Colors.white,
-                    icon: Icon(Icons.search,),
-                    onPressed: ()
-                  async {
-                    ShowMenu().show(context, SearchForUser(), true);
-                    //_userHelper.getUsersByName()
-                    // Navigator.push(context, MaterialPageRoute(builder: (build)=> SearchForUser()));
-                  },
+                    icon: Icon(
+                      Icons.search,
+                    ),
+                    onPressed: () async {
+                      ShowMenu().show(context, SearchForUser(), true);
+                      //_userHelper.getUsersByName()
+                      // Navigator.push(context, MaterialPageRoute(builder: (build)=> SearchForUser()));
+                    },
                   )
                 ],
               )
@@ -94,103 +105,97 @@ class _UsersPageState extends State<UsersPage> {
             height: 6,
           ),
           Expanded(
-            child: Consumer(
-                builder: (BuildContext context, MenuInfo value, Widget child)
-                {
-                  return FutureBuilder<List<UserInfo>>(
-                    future: value.loadUsers(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData)
-                        return GridView.builder(
-                          physics: ClampingScrollPhysics(),
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 1.0,
-                              crossAxisSpacing: 13.0,
-                              childAspectRatio: 0.8,
+              child: FutureBuilder<List<UserInfo>>(
+            future: _users,
+            builder: (context, snapshot) {
+              if (snapshot.hasData)
+                return GridView.builder(
+                    physics: ClampingScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 1.0,
+                      crossAxisSpacing: 13.0,
+                      childAspectRatio: 0.8,
+                    ),
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      var data = snapshot.data;
+                      var alarmTime = DateFormat('dd/MM/yyyy hh:mm')
+                          .format(data[index].creationDate);
+
+                      var gradientColor = GradientTemplate
+                          .gradientTemplate[CustomColors.gradientIndex()]
+                          .colors;
+                      return GestureDetector(
+                        onLongPress: () async {
+                          var result = await ShowMenu().show(
+                              context,
+                              WidgetsHelper().actionUser(context, data[index]),
+                              false);
+                          print("qwert $result");
+                          if (result != null && result) loadUsers();
+                        },
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (build) =>
+                                      UserDetails(data[index])));
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 32),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 9, vertical: 8),
+                          decoration: BoxDecoration(
+                            // image: DecorationImage(image: AssetImage('assets/clock_icon.png'),alignment: Alignment.bottomLeft, scale: 1.4),
+                            gradient: LinearGradient(
+                              colors: gradientColor,
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
                             ),
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (context, index) {
-                              var data = snapshot.data;
-                              var alarmTime = DateFormat('dd/MM/yyyy hh:mm')
-                                  .format(data[index].creationDate);
-                              var ccolor = Random();
-                              int ccclor = ccolor.nextInt(
-                                  GradientTemplate.gradientTemplate.length - 1);
-                              var gradientColor =
-                                  GradientTemplate.gradientTemplate[ccclor].colors;
-                              return GestureDetector(
-                                onLongPress: () async {
-                                  var result = await ShowMenu().show(
-                                      context,
-                                      WidgetsHelper()
-                                          .actionUser(context, data[index]),
-                                      false);
-//                            print(result);
-//                            if (result) setState(() {});
-                                },
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (build) =>
-                                              UserDetails(data[index])));
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.only(bottom: 32),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 9, vertical: 8),
-                                  decoration: BoxDecoration(
-                                    // image: DecorationImage(image: AssetImage('assets/clock_icon.png'),alignment: Alignment.bottomLeft, scale: 1.4),
-                                    gradient: LinearGradient(
-                                      colors: gradientColor,
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                    ),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: gradientColor.last.withOpacity(0.4),
-                                        blurRadius: 8,
-                                        spreadRadius: 2,
-                                        offset: Offset(4, 4),
-                                      ),
-                                    ],
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(24)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: gradientColor.last.withOpacity(0.4),
+                                blurRadius: 8,
+                                spreadRadius: 2,
+                                offset: Offset(4, 4),
+                              ),
+                            ],
+                            borderRadius: BorderRadius.all(Radius.circular(24)),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Wrap(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.person,
+                                    color: Colors.white,
+                                    size: 20,
                                   ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Wrap(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.person,
-                                            color: Colors.white,
-                                            size: 20,
-                                          ),
-                                          SizedBox(width: 8),
-                                          Text(
-                                            data[index].name,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15.0,
-                                                fontFamily: 'avenir'),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Text(
-                                            alarmTime,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontFamily: 'avenir',
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w700),
-                                          ),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    data[index].name,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15.0,
+                                        fontFamily: 'avenir'),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    alarmTime,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'avenir',
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700),
+                                  ),
 //                                      IconButton(
 //                                        icon: Icon(Icons.delete),
 //                                        color: Colors.white,
@@ -199,24 +204,21 @@ class _UsersPageState extends State<UsersPage> {
 //                                          loadAlarms();
 //                                        },
 //                                      ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            });
-                      return Center(
-                        child: Text(
-                          'Loading..',
-                          style: TextStyle(color: Colors.white),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       );
-                    },
-                  );
-                }
-            ),
-          ),
+                    });
+              return Center(
+                child: Text(
+                  'loading'.tr(),
+                  style: TextStyle(color: Colors.white),
+                ),
+              );
+            },
+          )),
         ],
       ),
     );
