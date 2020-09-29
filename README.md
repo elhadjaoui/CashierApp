@@ -7,9 +7,6 @@ Cashier is a sales, warehouse and accounting software for managing store and sto
 
 Download my app on play store : [CashierApp](https://play.google.com/store/apps/details?id=com.cashier.qayadapp)
 
-![playstore-icon](https://user-images.githubusercontent.com/43439029/94367916-4f1aed00-00d9-11eb-8ba5-8f746b36b1f1.png)
-
-
 <p align="center">
   <img src="razqi1.png" alt="flutterCashierApp" title="Screenshot">
 </p>
