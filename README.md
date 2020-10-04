@@ -5,7 +5,7 @@ Cashier is a sales, warehouse and accounting software for managing store and sto
 
  If you own a shop or store of your own and want to control accounts in it and know the daily, monthly and annual sales of the shop and the profits it achieves
 
-Download my app on play store : [CashierApp](https://play.google.com/store/apps/details?id=com.cashier.qayadapp)
+Inspired by : @afzalali15
 
 <p align="center">
   <img src="razqi1.png" alt="flutterCashierApp" title="Screenshot">
